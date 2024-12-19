@@ -41,11 +41,14 @@ export default function Home() {
 ※ Github Repository는 미리 생성해 놓는게 편리하다.
 1. 새로운 **터미널 창**을 연다.
 2. **프로젝트 경로**로 이동한다.
-3. git remote add origin https://github.com/wallarin/carrot-market-reloaded // 원격 저장소 이름 입력
+3. git remote add origin https://github.com/wallarin/carrot-market-reloaded.git // 원격 저장소 이름 입력
 
 **본인의 repository로 변경 필수!**
 
-4. 
+4. "git status" ※ 변경된 파일 확인으로 필수는 아니다.
+5. git add .
+6. git commit -m "커밋 메시지"
+7. git push -u origin main
 
 ---
 
