@@ -20,7 +20,7 @@ Creating a new Next.js app in 프로젝트/폴더
 
 # 프로젝트 초기화
 * /app/page.tsx, /app/globals.css의 내용을 정리한다.
-```typescript
+```javascript
 // page.tsx의 파일 초기화 후
 export default function Home() {
     return (
