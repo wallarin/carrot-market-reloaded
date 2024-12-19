@@ -36,6 +36,8 @@ export default function Home() {
 @tailwind utilities;
 ```
 
+---
+
 ## Github와 내 프로젝트 연결하기
 
 ※ Github Repository는 미리 생성해 놓는게 편리하다.
@@ -49,6 +51,11 @@ export default function Home() {
 5. git add .
 6. git commit -m "커밋 메시지"
 7. git push -u origin main
+
+---
+
+## TailWindCSS에 대하여 배워보자!
+
 
 ---
 
