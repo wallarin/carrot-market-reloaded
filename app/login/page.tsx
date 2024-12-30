@@ -4,7 +4,8 @@ import Input from "@/app/components/input";
 import FormButton from "@/app/components/button";
 import SocialLogin from "@/app/components/social-login";
 import {useFormState} from "react-dom";
-import {handleForm} from "@/app/api/users/actions";
+import {login} from "@/app/login/actions";
+import {PASSWORD_MIN_LENGTH} from "@/lib/constants";
 
 export default function Login() {
 
@@ -23,7 +24,7 @@ export default function Login() {
 
 
 
-    const [state, action] = useFormState(handleForm, null);
+    const [state, dispatch] = useFormState(login, null);
 
     return (
         <div className={"flex flex-col gap-10 py-8 px-6"}>
@@ -31,9 +32,22 @@ export default function Login() {
                 <h1 className={"text-2xl"}>안녕하세요!</h1>
                 <h2 className={"text-xl"}>이메일과 패스워드로 로그인하세요!</h2>
             </div>
-            <form action={action} className={"flex flex-col gap-3"}>
-                <Input name={"email"} type={"email"} placeholder={"이메일을 입력해주세요."} required={true}/>
-                <Input name={"password"} type={"password"} placeholder={"비밀번호를 입력해주세요."} required={true}/>
+            <form action={dispatch} className={"flex flex-col gap-3"}>
+                <Input
+                    name={"email"}
+                    type={"email"}
+                    placeholder={"이메일을 입력해주세요."}
+                    required={true}
+                    errors={state?.fieldErrors.email}
+                />
+                <Input
+                    name={"password"}
+                    type={"password"}
+                    placeholder={"비밀번호를 입력해주세요."}
+                    required={true}
+                    minLength={PASSWORD_MIN_LENGTH}
+                    errors={state?.fieldErrors.password}
+                />
                 <FormButton text={"로그인"} />
             </form>
             {/*<span onClick={onClick}><FormButton loading={false} text={"테스트 로그인"} /></span>*/}

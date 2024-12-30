@@ -1,9 +1,6 @@
 "use server"
 import { z } from "zod";
-
-const passwordRegex = new RegExp(
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).+$/
-)
+import {PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR} from "@/lib/constants";
 
 const checkPassword = ({password, confirm_password}:
                            {password:string, confirm_password:string}) => password === confirm_password
@@ -13,10 +10,10 @@ const formSchema = z.object({
     username: z.string({
         invalid_type_error: "이름은 한글로 입력해주세요.",
         required_error: "이름은 필수 입력값 입니다."
-    }).min(2, "이름이 너무 짧습니다.").max(10, "이름이 너무 깁니다.").trim().regex(/^[\uAC00-\uD7A3]+$/, "이름은 한글로만 입력해야합니다."),
+    }).trim().regex(/^[\uAC00-\uD7A3]+$/, "이름은 한글로만 입력해야합니다."),
     email: z.string().email().toLowerCase(),
-    password: z.string().min(10).regex(passwordRegex, "비밀번호는 소문자, 대문자, 숫자, 특수문자를 포함해야합니다."),
-    confirm_password: z.string().min(10)
+    password: z.string().min(PASSWORD_MIN_LENGTH).regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
+    confirm_password: z.string().min(PASSWORD_MIN_LENGTH)
 }).refine(checkPassword, {
     message: "비밀번호가 서로 일치하지 않습니다.",
     path: ["confirm_password"],
