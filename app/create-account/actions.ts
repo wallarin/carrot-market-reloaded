@@ -3,9 +3,8 @@ import { z } from "zod";
 import {PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR} from "@/lib/constants";
 import db from "@/lib/db";
 import bcrypt from "bcrypt";
-import {getIronSession} from "iron-session";
-import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
+import getSession from "@/lib/session";
 
 const checkPassword = ({password, confirm_password}:
                            {password:string, confirm_password:string}) => password === confirm_password
@@ -71,11 +70,7 @@ export async function createAccount(prevState: any, formData:FormData) {
         });
         console.log(user)
         // 로그인 시켜주기 => 쿠키를 사용자에게 준다. [iron-session을 이용해서 저장하기]
-        const session = await getIronSession(cookies(), {
-            cookieName: "delicious-karrot",
-            password: process.env.COOKIE_PASSWORD!, // !: COOKIE_PASSWORD가 env파일에 무조건 존재한다는 의미
-        });
-        // @ts-ignore
+        const session = await getSession();
         session.id = user.id
         await session.save();
         // 메인페이지로 redirect
