@@ -4,7 +4,7 @@ import {z} from "zod";
 import {PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR} from "@/lib/constants";
 import db from "@/lib/db";
 import bcrypt from "bcrypt";
-import getSession from "@/lib/session";
+import getSession, {saveSession} from "@/lib/session";
 import {redirect} from "next/navigation";
 
 const checkEmailExists = async (email: string) => {
@@ -52,9 +52,7 @@ export async function login(prevState: any, formData: FormData) {
         // ?? "": null인 경우에 빈 값과 비교한다. => 추후 수정 예정
 
         if (ok) {
-            const session = await getSession();
-            session.id = user!.id;
-            await session.save();
+            await saveSession(user!.id);
             redirect("/profile");
         } else {
             return { // 에러를 zod와 동일하게 해서 보내준다. (zod인 척하는 것이다.)

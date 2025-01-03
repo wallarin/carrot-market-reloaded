@@ -4,7 +4,7 @@ import {PASSWORD_MIN_LENGTH, PASSWORD_REGEX, PASSWORD_REGEX_ERROR} from "@/lib/c
 import db from "@/lib/db";
 import bcrypt from "bcrypt";
 import {redirect} from "next/navigation";
-import getSession from "@/lib/session";
+import {saveSession} from "@/lib/session";
 
 const checkPassword = ({password, confirm_password}:
                            {password:string, confirm_password:string}) => password === confirm_password
@@ -70,9 +70,7 @@ export async function createAccount(prevState: any, formData:FormData) {
         });
         console.log(user)
         // 로그인 시켜주기 => 쿠키를 사용자에게 준다. [iron-session을 이용해서 저장하기]
-        const session = await getSession();
-        session.id = user.id
-        await session.save();
+        await saveSession(user.id);
         // 메인페이지로 redirect
         redirect("/profile")
     }

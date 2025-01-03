@@ -27,6 +27,8 @@ export async function middleware(request: NextRequest) {
         "/login": true,
         "/sms": true,
         "/create-account": true,
+        "/github/start": true,
+        "/github/complete": true,
     }
     
     // 인증된 사용자만 접근이 가능하도록 처리해보기

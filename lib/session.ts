@@ -11,3 +11,9 @@ export default function getSession() {
         password: process.env.COOKIE_PASSWORD!, // !: COOKIE_PASSWORD가 env파일에 무조건 존재한다는 의미
     });
 }
+
+export async function saveSession(id: number) {
+    const session = await getSession();
+    session.id = id;
+    await session.save();
+}
