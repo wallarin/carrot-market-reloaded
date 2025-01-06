@@ -28,6 +28,7 @@ export default function SMSLogin() {
                         required={true}
                         min={100000}
                         max={999999}
+                        errors={state.error?.formErrors}
                     />
                 ) : <Input
                     name={"phone"}
