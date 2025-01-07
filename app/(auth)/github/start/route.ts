@@ -1,6 +1,5 @@
 
 export function GET() {
-    console.log("GETGET");
     const baseURL = "https://github.com/login/oauth/authorize"
     const params = {
         client_id: process.env.GITHUB_CLIENT_ID!, // .env 파일에 저장해놓은 ID Key

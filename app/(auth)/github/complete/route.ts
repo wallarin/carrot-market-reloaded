@@ -1,7 +1,7 @@
 import {NextRequest} from "next/server";
-import {userEmail, userProfile} from "@/app/github/userInfo";
-import {accessToken} from "@/app/github/token";
-import {dupleUsername, findUser, saveUser} from "@/app/github/userWork";
+import {userEmail, userProfile} from "@/app/(auth)/github/userInfo";
+import {accessToken} from "@/app/(auth)/github/token";
+import {dupleUsername, findUser, saveUser} from "@/app/(auth)/github/userWork";
 
 export async function GET(request:NextRequest) {
     const code = request.nextUrl.searchParams.get('code');

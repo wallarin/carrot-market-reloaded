@@ -3,7 +3,7 @@
 import Input from "@/app/components/input";
 import Button from "@/app/components/button";
 import {useFormState} from "react-dom";
-import {smsLogin} from "@/app/sms/actions";
+import {smsLogin} from "@/app/(auth)/sms/actions";
 
 const initialState = {
     token: false,
