@@ -14,7 +14,7 @@ export default function ListProduct({ title, price, created_at, photo,id }: List
     return (
         <Link href={`/products/${id}`} className={"flex gap-5"} >
             <div className={"relative size-28 rounded-md overflow-hidden"}>
-                <Image fill src={photo} alt={title} />
+                <Image fill className={"object-cover"} src={photo} alt={title} />
                 {/* Image 컴포넌트는 기본적으로 Width, Height의 값을 넣어줘야한다.
                     하지만 우리가 이미지의 크기를 정확하게 모르는 경우 fill (default: absolute)로 대체가 가능하고
                     상위의 부모 태그를 relative로 설정하고 그 크기를 조절하여 사용하면 된다.

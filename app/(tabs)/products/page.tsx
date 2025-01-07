@@ -1,7 +1,8 @@
 import db from "@/lib/db";
-import ListProduct from "@/app/components/list-products";
+import ProductList from "@/app/components/product-list";
+import {Prisma} from "@prisma/client";
 
-async function getProducts() {
+async function getInitialProducts() {
     const products = await db.product.findMany({
         select: {
             title: true,
@@ -10,6 +11,8 @@ async function getProducts() {
             photo: true,
             id: true
         },
+        take: 1, // == limit => 1개의 상품만 가져오겠다.
+
         orderBy: {
             created_at: "desc"
         }
@@ -17,12 +20,13 @@ async function getProducts() {
     return products
 }
 
+export type InitialProducts = Prisma.PromiseReturnType<typeof getInitialProducts> // Prisma가 반환되는 Type을 유추한다.
+
 export default async function Products () {
-    const products = await getProducts();
+    const initialProducts = await getInitialProducts();
     return (
-        <div className={"p-5 flex flex-col gap-5"}>
-            {/*{products.map((products) => <ListProducts id={products.id} title={products.title} />)} 하나씩 설정할 수 있지만 아래처럼 하면 product의 모든 값을 넘겨준다. */}
-            {products.map((product) => (<ListProduct key={product.id} {...product} />))}
+        <div>
+            <ProductList initialProducts={initialProducts} />
         </div>
     );
 }
